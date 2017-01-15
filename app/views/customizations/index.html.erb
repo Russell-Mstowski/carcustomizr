@@ -1,0 +1,102 @@
+<main class="page-content">
+  <!--Start section-->
+  <section class="text-center text-md-left offset-1">
+    <div class="container">
+      <div class="row">
+        <% @customizations.each do |customization| %>
+          <div class="col-sm-6 col-md-4">
+          <article class="thumbnail thumbnail-4 section-border well slow-hover">
+            <div class="image-slow-wrapper">
+              <div id="carmodel-<%= customization.id %>" style="width: 350px; height: 200px;">
+                 <script type="text/javascript">
+                    /* global THREE */
+
+                    var scenes = [];
+                    var customizations = "<%= @customizations %>";
+                    console.log(customizations);
+                    var i = 0;
+
+                    for(i; i < 2; i++) {
+
+                      var scene = new THREE.Scene();
+
+                      var element = document.getElementById("carmodel-<%= customization.id %>");
+
+                      var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
+                      camera.position.z = 5;
+                      scene.userData.camera = camera;
+
+                      var light = new THREE.SpotLight();
+                      light.position.set( 100, 1000, 100);
+                      light.intensity = 5;
+                      scene.add( light );
+
+                      var mtlLoader = new THREE.MTLLoader();
+
+                      function loadMaterial( materials ) {
+                        
+                        materials.preload();
+
+                        var loader = new THREE.OBJLoader();
+                        loader.setMaterials( materials );
+                        loader.load( "/car_models/<%= customization.car.make %>", function(object) {
+                          scene.add(object);
+                          //object.position = new THREE.Vector3(100, 100, 100);
+                          //document.getElementById("carmodel-<%= customization.id %>").style["display"] = "";
+                        });
+
+                      }
+
+                      
+                      mtlLoader.load("/car_models/<%= customization.color %>", loadMaterial);
+
+                      var zoom = new THREE.TrackballControls( camera, element );
+                      var orbit = new THREE.OrbitControls( camera, element );
+
+                      scenes.push(scene);
+                    }
+
+                    var renderer = new THREE.WebGLRenderer();
+                    renderer.setPixelRatio( window.devicePixelRatio );
+                    renderer.setSize( window.innerWidth / 3.3, window.innerHeight / 3);
+                    renderer.setClearColor(new THREE.Color("hsl(0, 0%, 75%)"));
+                    document.getElementById("carmodel-<%= customization.id %>").appendChild( renderer.domElement );
+
+
+                    function render() {
+                      requestAnimationFrame( render );
+                      zoom.update();
+                      orbit.update();
+
+                      renderer.render( scene, camera );
+                    }
+
+                    render();
+                 </script>
+              </div>
+            </div>
+            <div class="caption">
+              <h4><a href="/customizations/<%= customization.id %>">Customization #<%= customization.id %></a></h4>
+              <p class="text-dark-variant-2">Creator: <%= customization.user.name %></p>
+              <div class="blog-info">
+                <div class="pull-md-left">
+                  <time datetime="2015" class="meta fa-calendar"><%= customization.created_at %></time><a href="#" class="badge fa-comments font-secondary"><%= customization.comments.length %></a>
+                </div><a href="/customizations/<%= customization.id %>" class="btn-link">Read More</a>
+              </div>
+            </div>
+          </article>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </section>
+  <!--End section-->
+
+  <!--Start section-->
+  <section class="well text-center text-md-left">
+    <div class="container">
+      <div aria-label="First group" role="group" class="col-inset-2 text-center btn-group"><a href="#" class="btn btn-default round-small active">1</a><a href="#" class="btn btn-default round-small">2</a><a href="#" class="btn btn-default round-small">3</a><span class="text-light-clr font-secondary">...</span><a href="#" class="btn btn-default round-small">8</a></div>
+    </div>
+  </section>
+  <!--End section-->
+</main>

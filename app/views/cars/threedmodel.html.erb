@@ -1,0 +1,35 @@
+<div id="threedmodel">
+  <script type="text/javascript">
+  var scene = new THREE.Scene();
+
+  var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
+  camera.position.z = 200;
+
+  var spotLight = new THREE.SpotLight( 0xffffff );
+  spotLight.position.set( 100, 1000, 100);
+  scene.add( spotLight );
+
+  var loader = new THREE.OBJLoader();
+  loader.load( '/car_models/avent.obj', function (object) {
+    scene.add(object);
+  });
+
+  var renderer = new THREE.WebGLRenderer();
+  renderer.setPixelRatio( window.devicePixelRatio )
+  renderer.setSize( window.innerWidth, window.innerHeight );
+  renderer.setClearColor(new THREE.Color("hsl(0, 0%, 100%)"));
+  document.getElementById("threedmodel").appendChild( renderer.domElement );
+
+  zoom = new THREE.TrackballControls( camera );
+  orbit = new THREE.OrbitControls( camera );
+
+  function render() {
+    requestAnimationFrame( render );
+    zoom.update();
+    orbit.update();
+    renderer.render( scene, camera );
+  }
+
+  render();
+</script>
+</div>

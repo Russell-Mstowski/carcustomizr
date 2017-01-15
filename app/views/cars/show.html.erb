@@ -1,0 +1,249 @@
+<main class="page-content">
+  <section class="section-border text-center text-md-left">
+    <div class="container">
+      <ol class="breadcrumb">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#">Shop</a></li>
+        <li class="active"><a href="#">Single product</a></li>
+      </ol>
+    </div>
+  </section>
+
+  <!--Start section-->
+  <section class="well well-sm section-border single-product">
+    <div class="container">
+      <div class="row product">
+        <div class="col-md-7 text-center">
+        
+        <div id="threejs">
+        </div>
+        
+        </div>
+        <div class="col-md-5 text-center text-md-left">
+          <h1 class="text-bold h1-variant-2"><%= @car.make %> <%= @car.model %> </h1><a href="#" class="rating"><span class="fa-star"></span><span class="fa-star"></span><span class="fa-star"></span><span class="fa-star"></span><span class="fa-star-o"></span></a><a href="#" class="text-light-clr"><%= @car.customizations.length %> customizations created</a>
+          <div class="big offset-6 line-height-2">
+
+            Color: <button onclick="changeColorToGreen()">Green</button><button onclick="changeColorToPurple()">Purple</button><button onclick="changeColorToRed()">Red</button><br></br>
+
+            <button onclick="alertPos()" >alert pos</button>
+
+            <%= form_tag '/customizations', method: :post do%>
+              <div>
+              <%= hidden_field_tag(:color, "redavent.mtl") %>
+              </div>
+              <div>
+              <%= label_tag :wheels, 'Wheels: ' %>
+              <%= text_field_tag :wheels %>
+              <br></br>
+              </div>
+              <div>
+              <%= label_tag :rims, 'Rims: ' %>
+              <%= text_field_tag :rims %>
+              <br></br>
+              </div>
+              <div>
+              <%= hidden_field_tag :car_id, @car.id %>
+              </div>
+              <div>
+              <%= submit_tag 'Submit' %>
+              </div>
+              <% end %>
+          </div>
+          <div class="caption">
+            <div class="share offset-6"><span class="small font-secondary text-uppercase text-light-clr">Share this</span>
+              <ul class="list-inline list-inline-4 pull-md-right">
+                <li><a href="/threedmodel">link</a></li>
+                <li><a href="#" class="fa-pinterest-p text-danger"></a></li>
+                <li><a href="#" class="fa-twitter text-primary"></a></li>
+                <li><a href="#" class="fa-google-plus text-danger"></a></li>
+                <li><a href="#" class="fa-instagram text-info"></a></li>
+                <li><a href="#" class="fa-rss"></a></li>
+                <li><a href="#" class="fa-envelope text-info"></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 offset-3">
+          <!--Tabs-->
+          <ul id="myTabs" role="tablist" class="nav nav-tabs text-center product">
+            <li role="presentation" class="active round-large text-dark-variant-3"><a href="#tab0" aria-controls="tab0" role="tab" class="round-large">Description</a></li>
+            <li role="presentation" class="round-large text-dark-variant-3"><a href="#tab1" aria-controls="tab1" role="tab" class="round-large">Additional information</a></li>
+            <li role="presentation" class="round-large text-dark-variant-3"><a href="#tab2" aria-controls="tab2" role="tab" class="round-large">Reviews <span class="text-light-clr">(2)</span></a></li>
+          </ul>
+          <!--Tab panes-->
+          <div class="tab-content text-sm-left">
+            <div role="tabpanel" id="tab0" class="tab-pane active fade in">
+              <p class="lead text-base">
+                Short sleeve t-shirts in black, crewneck collar. Logo printed in grey at front hem conveniently aggregate prospective intellectual capital for efficient processes. Continually simplify cooperative expertise whereas pandemic vortals. Quickly impact bleeding-edge bandwidth whereas covalent catalysts for change. Tonal stitching. 98% cotton, 2% elastane. Made in Italy.
+                
+              </p>
+            </div>
+            <div role="tabpanel" id="tab1" class="tab-pane fade">
+              <!--Table-striped-->
+              <table class="table table-striped-odd table-mobile mobile-primary">
+                <colgroup>
+                  <col class="col-xs-4">
+                  <col class="col-xs-8">
+                </colgroup>
+                <tbody>
+                  <tr class="count-off">
+                    <td class="boder-none small font-secondary text-uppercase letter-spacing-1 text-light-clr">Size</td>
+                    <td class="boder-none">Small, Medium & Large</td>
+                  </tr>
+                  <tr class="count-off">
+                    <td class="boder-none small font-secondary text-uppercase letter-spacing-1 text-light-clr">Color</td>
+                    <td class="boder-none">Pink & White</td>
+                  </tr>
+                  <tr class="count-off">
+                    <td class="boder-none small font-secondary text-uppercase letter-spacing-1 text-light-clr">Waist</td>
+                    <td class="boder-none">26 cm</td>
+                  </tr>
+                  <tr class="count-off">
+                    <td class="boder-none small font-secondary text-uppercase letter-spacing-1 text-light-clr">Length</td>
+                    <td class="boder-none">40 cm</td>
+                  </tr>
+                  <tr class="count-off">
+                    <td class="boder-none small font-secondary text-uppercase letter-spacing-1 text-light-clr">Chest</td>
+                    <td class="boder-none">33 inches</td>
+                  </tr>
+                  <tr class="count-off">
+                    <td class="boder-none small font-secondary text-uppercase letter-spacing-1 text-light-clr">Fabric</td>
+                    <td class="boder-none">Cotton, Silk & Synthetic</td>
+                  </tr>
+                  <tr class="count-off">
+                    <td class="boder-none small font-secondary text-uppercase letter-spacing-1 text-light-clr">Warranty</td>
+                    <td class="boder-none">3 Months</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div role="tabpanel" id="tab2" class="tab-pane fade comments text-right">
+              <blockquote class="box-sm">
+                <div class="box__left text-center"><img src="/images/blog-26.jpg" alt="" class="img-circle"></div>
+                <div class="box__body box__middle btn-shadow round-small comments-rating">
+                  <h6>John Doe</h6>
+                  <time datetime="2015" class="meta">April 24, 2012 at 10:46 am</time><a href="#" class="rating pull-right"><span class="fa-star"></span><span class="fa-star"></span><span class="fa-star"></span><span class="fa-star"></span><span class="fa-star-o"></span></a>
+                  <p class="big text-light-clr">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, eveniet, eligendi et nobis neque minus mollitia sit repudiandae ad repellendus recusandae blanditiis praesentium
+                    
+                  </p>
+                </div>
+              </blockquote>
+              <blockquote class="box-sm offset-5">
+                <div class="box__left text-center"><img src="/images/blog-26.jpg" alt="" class="img-circle"></div>
+                <div class="box__body box__middle btn-shadow round-small comments-rating">
+                  <h6>Mary Jane</h6>
+                  <time datetime="2015" class="meta">June 16, 2014 at 6:00PM</time><a href="#" class="rating pull-right"><span class="fa-star"></span><span class="fa-star"></span><span class="fa-star"></span><span class="fa-star"></span><span class="fa-star-o"></span></a>
+                  <p class="big text-light-clr">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, eveniet, eligendi et nobis neque minus mollitia sit repudiandae ad repellendus recusandae blanditiis praesentium
+                    
+                  </p>
+                </div>
+              </blockquote><a href="#" class="btn btn-primary round-xl btn-sm offset-5">Add a review</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--End section-->
+  
+  
+
+  <!--Start section-->
+  <section class="text-center well well-sm">
+    <div class="container">
+      <h4 class="text-dark-variant-4">Other Cars</h4>
+      <div class="row flow-offset-1 offset-5">
+        <% @cars.each do |car|%>
+          <div class="col-xs-6 col-md-3">
+          <div class="product tumbnail thumbnail-3"><a href="/cars/<%= car.id %>"><img src="<%= car.image %>" alt=""></a>
+            <div class="caption">
+              <h6><a href="/cars/<%= car.id %>"><%= car.make %> <%= car.model %></a>
+            </div>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </section>
+  <!--End section-->
+  
+  
+</main>
+
+<script type="text/javascript">
+  /* global THREE */
+  var scene = new THREE.Scene();
+
+  var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
+  camera.position.x = -10;
+  camera.position.y = 4;
+  camera.position.z = 6;
+
+  var light = new THREE.SpotLight();
+  light.position.set( 100, 1000, 100);
+  light.intensity = 5;
+  scene.add( light );
+
+  var mtlLoader = new THREE.MTLLoader();
+
+  function loadMaterial( materials ) {
+    
+    materials.preload();
+
+    var loader = new THREE.OBJLoader();
+    loader.setMaterials( materials );
+    loader.load( '/car_models/avent.obj', function(object) {
+      scene.add(object);
+      //object.position = new THREE.Vector3();
+      document.getElementById("threejs").style["display"] = "";
+
+      function alertPos() {
+        scene.updateMatrixWorld(true);
+        var position = new THREE.Vector3();
+        position.getPositionFromMatrix( object.matrixWorld );
+        alert(position.x + ',' + position.y + ',' + position.z);
+      }
+    });
+
+  }
+
+  mtlLoader.load("/car_models/redavent.mtl", loadMaterial);
+
+  var renderer = new THREE.WebGLRenderer();
+  renderer.setPixelRatio( window.devicePixelRatio );
+  renderer.setSize( window.innerWidth / 2, window.innerHeight / 1.5);
+  renderer.setClearColor(new THREE.Color("hsl(0, 0%, 83%)"));
+  document.getElementById("threejs").appendChild( renderer.domElement );
+
+  var zoom = new THREE.TrackballControls( camera, renderer.domElement );
+  var orbit = new THREE.OrbitControls( camera, renderer.domElement );
+
+  function render() {
+    requestAnimationFrame( render );
+    zoom.update();
+    orbit.update();
+    renderer.render( scene, camera );
+  }
+
+  render();
+
+  function changeColorToRed() {
+    document.getElementById("threejs").style["display"] = "none";
+    mtlLoader.load("/car_models/redavent.mtl", loadMaterial);
+    document.getElementById("color").value = "redavent.mtl";
+  }
+
+  function changeColorToPurple() {
+    document.getElementById("threejs").style["display"] = "none";
+    mtlLoader.load("/car_models/purpleavent.mtl", loadMaterial);
+    document.getElementById("color").value = "purpleavent.mtl";
+  }
+
+  function changeColorToGreen() {
+    document.getElementById("threejs").style["display"] = "none";
+    mtlLoader.load("/car_models/greenavent.mtl", loadMaterial);
+    document.getElementById("color").value = "greenavent.mtl";
+  }
+</script>

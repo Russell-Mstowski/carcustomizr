@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" class="wide wow-animation">
+  <head>
+    <!--Site Title-->
+    <title>Home</title>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+    <!--Stylesheets-->
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="/css/style.css">
+<!--[if lt IE 10]>
+    <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/.."><img src="/images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
+    <script src="/js/html5shiv.min.js"></script><[endif]-->
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    
+     <!--The Main Wrapper-->
+    <div class="page">
+      <!--
+      ========================================================
+                              HEADER
+      ========================================================
+      -->
+      <header class="page-header">
+        <section>
+          <!--Swiper-->
+          <div data-autoplay="5000" data-slide-effect="fade" data-loop="false" class="swiper-container swiper-slider">
+            <div class="jumbotron text-center">
+              <h1>CarCustomizr</h1>
+              
+              <section class="well well-sm">
+                <div class="container">
+                  <div class="row flow-offset-1">
+                    <div class="col-md-6 col-md-offset-3 btn-shadow inset-sm-min img-rounded bg-white">
+                      <h5 class="text-center">Sign in</h5>
+                      <%= form_tag "/login", method: :post do %>
+                      <!-- <form class="row label-insets"> -->
+                        <div class="form-group col-sm-12">
+                          <label for="exampleInputText2" class="text-uppercase font-secondary">Username or E-mail</label>
+                          <input type="text" placeholder="Username or E-mail" id="exampleInputText2" class="form-control round-small" name="email">
+                        </div>
+                        <div class="form-group col-sm-6">
+                          <label for="exampleInputPass1" class="text-uppercase font-secondary">Password</label>
+                          <input type="password" placeholder="Your password" id="exampleInputPass1" class="form-control round-small" name="password">
+                        </div>
+                        <div class="col-sm-6">
+                          <button type="submit" class="btn btn-primary btn-xs round-small btn-block form-el-offset-1">Sign in</button>
+                        </div>
+                        <div class="col-xs-12 text-center">
+                          <p class="small text-uppercase text-light-clr font-secondary max-width separate">or</p>
+                          <div class="btn-elements-group-2"><a href="#" class="btn btn-info btn-xs round-small btn-icon-left btn-min-width"><span class="icon fa-facebook"></span> facebook</a><a href="#" class="btn btn-primary btn-xs round-small btn-icon-left btn-min-width"><span class="icon fa-twitter"></span> Twitter</a><a href="#" class="btn btn-danger btn-xs round-small btn-icon-left btn-min-width"><span class="icon fa-google-plus"></span> Google+</a></div>
+                        </div>
+                      <!-- </form> -->
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+            </div>
+            <div class="swiper-wrapper">
+              <div data-slide-bg="<%= @cars.fourth.image %>" class="swiper-slide">
+                <div class="swiper-slide-caption"></div>
+              </div>
+              <div data-slide-bg="<%= @cars.second.image %>" class="swiper-slide">
+                <div class="swiper-slide-caption"></div>
+              </div>
+              <div data-slide-bg="<%= @cars.third.image %>" class="swiper-slide">
+                <div class="swiper-slide-caption"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </header>
+    </div>
+
+    <!--Core Scripts-->
+    <script src="/js/core.min.js"></script>
+    <!--jQuery (necessary for Bootstrap's JavaScript plugins)-->
+    <!--Include all compiled plugins (below), or include individual files as needed-->
+    <script src="/js/bootstrap.min.js"></script>
+    <!--Additional Functionality Scripts-->
+    <script src="/js/script.js"></script>
+  </body>
+</html>

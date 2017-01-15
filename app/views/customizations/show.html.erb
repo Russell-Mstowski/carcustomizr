@@ -1,0 +1,175 @@
+<main class="page-content">
+  <section class="section-border text-center text-md-left">
+    <div class="container">
+      <ol class="breadcrumb">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Timeline</a></li>
+        <li class="active"><a href="#">Post page</a></li>
+      </ol>
+    </div>
+  </section>
+
+  <!--Start section-->
+  <section class="text-center text-md-left offset-1">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 section-border">
+          <article class="well">
+            <h1>Customization #<%= @customization.id%></h1>
+            <div class="blog-info">
+              <div class="pull-md-left">
+                <time datetime="2015" class="meta fa-calendar"><%= @customization.created_at %></time><a class="badge fa-user text-uppercase font-secondary">Admin</a><span class="tags"><a class="badge fa-tags"></a><a class="post-tag round-xl small">General</a><a class="post-tag round-xl small">Media</a></span><a class="badge fa-comments text-uppercase font-secondary"><%= @customization.comments.length %> comments</a>
+              </div>
+            </div>
+            
+            <div id="carmodel">
+              
+            </div>
+
+            <p class="lead offset-2 text-justify">
+              Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. <br><br>
+              
+            </p><img src="images/blog-20.jpg" alt="" class="pull-md-left img-inset-1">
+            <p class="lead text-justify">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda deleniti eaque eum exercitationem fugit in, ipsum, itaque minus molestias nam nobis officia quidem quisquam ratione recusandae reprehenderit veniam vero voluptates! A ad aspernatur autem corporis, culpa deleniti dignissimos id in iure, laudantium magnam maxime<br><br>
+                                          I optio provident qui quo repellat sequi sunt totam veritatis vitae. Dolores esse nam obcaecati praesentium quod? Accusamus ad aliquam asperiores beatae blanditiis consectetur  officiis quae quos <span class="text-light-clr">(od repudiandae accusantium aliquid amet aut) </span>.<br><br>
+            </p>
+          </article>
+        </div>
+        <div class="col-xs-12 section-border">
+          <div class="blog-info blog-info-inset text-center text-lg-left">
+            <div class="pull-lg-left"><span class="tags wrap-normal"><a class="badge fa-tags"></a><a class="post-tag round-xl small">General</a><a class="post-tag round-xl small">Information</a><a class="post-tag round-xl small">Media</a><a class="post-tag round-xl small">Press</a><a class="post-tag round-xl small">Gallery</a><a class="post-tag round-xl small">Illustration</a></span></div>
+            <div class="pull-lg-right inline-block"><span class="small font-secondary text-uppercase text-light-clr">Share this</span>
+              <ul class="list-inline list-inline-4 pull-md-right">
+                <li><a href="#" class="fa-facebook text-info"></a></li>
+                <li><a href="#" class="fa-pinterest-p text-danger"></a></li>
+                <li><a href="#" class="fa-twitter text-primary"></a></li>
+                <li><a href="#" class="fa-google-plus text-danger"></a></li>
+                <li><a href="#" class="fa-instagram text-info"></a></li>
+                <li><a href="#" class="fa-rss"></a></li>
+                <li><a href="#" class="fa-envelope text-info"></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 text-center text-md-left post-links offset-5"><a href="#" class="btn-link pull-md-left fa-angle-left">This is a Standard post with a Slider Gallery</a><br class="hidden-lg hidden-md"><a href="#" class="btn-link pull-md-right fa-angle-right">This is an Embedded Video Post</a></div>
+        <div class="col-xs-12 text-center text-md-left offset-2 section-border">
+          <div class="post-autor col-inset-2">
+            <h6>Posted by <span class="text-primary"><%= @customization.user.name %></span></h6>
+            <div class="box-md offset-5">
+              <div class="box__left"><img src="images/blog-21.jpg" alt="" class="img-circle"></div>
+              <div class="box__body box__middle">
+                <p class="big">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, eveniet, eligendi et nobis neque minus mollitia sit repudiandae ad repellendus recusandae blanditiis praesentium vitae ab sint earum voluptate velit beatae alias fugit accusantium laboriosam nisi reiciendis deleniti tenetur molestiae maxime id quaerat consequatur fugiat aliquam laborum nam aliquid. Consectetur, perferendis?
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 text-center text-md-left well">
+          <h5>Other customizations:</h5>
+          <div class="row no-offset">
+            <% @user_customizations.each do |customization|%>
+              <div class="col-sm-6 col-md-4">
+              <article class="thumbnail thumbnail-4 section-border well"><img src="<%= customization.car.image %>" alt="">
+                <div class="caption">
+                  <h4><a href="blog_post.html">Customization #<%= customization.id %></a></h4>
+                  <p class="text-dark-variant-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, asperiores quod est tenetur in.</p>
+                  <div class="blog-info">
+                    <div class="pull-md-left">
+                      <time datetime="2015" class="meta fa-calendar"><%= customization.created_at %></time><a href="#" class="badge fa-comments font-secondary"><%= customization.comments.length %></a>
+                    </div><a href="blog_post.html" class="btn-link">Read More</a>
+                  </div>
+                </div>
+              </article>
+              </div>
+            <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 text-center text-md-left section-border well">
+          <h5><%= @customization.comments.length %> Comments</h5>
+          <div class="row comments">
+            <% @customization.comments.each do |comment|%>
+              <div class="col-xs-12">
+              <blockquote class="box-sm">
+                <div class="box__left text-center"><img src="images/blog-26.jpg" alt="" class="img-circle"></div>
+                <div class="box__body box__middle btn-shadow round-small">
+                  <h6><%= comment.user.name %></h6>
+                  <time datetime="2015" class="meta"><%= comment.created_at %></time>
+                  <p class="big text-light-clr"><%= comment.comment %></p>
+                </div>
+              </blockquote>
+            </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="well well-inset-2">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <h5 class="text-bold text-center text-md-left">Leave a Comment</h5>
+            <%= form_tag "/comments", method: "post" do %>
+            <%= label_tag :comment, "Comment: " %>
+            <%=  text_field_tag :comment %>
+            <%=  hidden_field_tag :customization_id, @customization.id%>
+            <%=  submit_tag 'submit' %>
+            <% end %>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script type="text/javascript">
+  /* global THREE */
+  var scene = new THREE.Scene();
+
+  var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
+  camera.position.z = 200;
+
+  var light = new THREE.SpotLight();
+  light.position.set( 100, 1000, 100);
+  light.intensity = 5;
+  scene.add( light );
+
+  var mtlLoader = new THREE.MTLLoader();
+
+  function loadMaterial( materials ) {
+    
+    materials.preload();
+
+    var loader = new THREE.OBJLoader();
+    loader.setMaterials( materials );
+    loader.load( '/car_models/avent.obj', function(object) {
+      scene.add(object);
+      //object.position = new THREE.Vector3(100, 100, 100);
+      document.getElementById("threejs").style["display"] = "";
+    });
+
+  }
+
+  mtlLoader.load("/car_models/<%= @customization.color %>", loadMaterial);
+
+  var renderer = new THREE.WebGLRenderer();
+  renderer.setPixelRatio( window.devicePixelRatio );
+  renderer.setSize( window.innerWidth / 2, window.innerHeight / 2);
+  renderer.setClearColor(new THREE.Color("hsl(0, 0%, 100%)"));
+  document.getElementById("carmodel").appendChild( renderer.domElement );
+
+  var zoom = new THREE.TrackballControls( camera, renderer.domElement );
+  var orbit = new THREE.OrbitControls( camera, renderer.domElement );
+
+  function render() {
+    requestAnimationFrame( render );
+    zoom.update();
+    orbit.update();
+    renderer.render( scene, camera );
+  }
+
+  render();
+</script>

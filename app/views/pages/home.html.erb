@@ -1,0 +1,161 @@
+<header class="page-header">
+        <section>
+          <!--Swiper-->
+          <div data-autoplay="5000" data-slide-effect="fade" data-loop="false" class="swiper-container swiper-slider swiper-container-horizontal swiper-container-fade">
+            <div class="jumbotron text-center">
+              <h1 id="title">Welcome to CarCustomizr!</h1>
+            </div>
+            <div class="swiper-wrapper" style="transition-duration: 0ms;">
+              <div data-slide-bg="<%= @car_one.image %>" class="swiper-slide swiper-slide-active" style="background-image: url(&quot;<%= @car_one.image %>&quot;); background-size: cover; width: 458px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">
+                <div class="swiper-slide-caption"></div>
+              </div>
+              <div data-slide-bg="<%= @car_two.image %>" class="swiper-slide swiper-slide-next" style="background-image: url(&quot;<%= @car_two.image %>&quot;); background-size: cover; width: 458px; opacity: 0; transform: translate3d(-458px, 0px, 0px); transition-duration: 0ms;">
+                <div class="swiper-slide-caption"></div>
+              </div>
+              <div data-slide-bg="<%= @car_three.image %>" class="swiper-slide" style="background-image: url(&quot;<%= @car_three.image %>&quot;); background-size: cover; width: 458px; opacity: 0; transform: translate3d(-916px, 0px, 0px); transition-duration: 0ms;">
+                <div class="swiper-slide-caption"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+</header>
+
+<main class="page-content">
+
+        <!--Start section-->
+        <section class="text-center well well-sm">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-10 col-lg-offset-1">
+                <h1 id="title" class="text-bold">Create your very own custom car!</h1>
+
+                <p id="title">Choose from a variety of 3d car models to interact with and customize. Your customization will be saved and displayed for people to see, comment, and vote on.</p>
+
+
+                <div id="threejs" class="box-shadow offset-2 margin-negative">
+                  <script type="text/javascript">
+                  /* global THREE */
+                  var scene = new THREE.Scene();
+
+                  var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
+                  camera.position.x = -4;
+                  camera.position.y = 3;
+                  camera.position.z = 2;
+
+                  var light = new THREE.SpotLight();
+                  light.position.set( 100, 1000, 100);
+                  light.intensity = 0.6;
+                  scene.add( light );
+
+                  var loader = new THREE.OBJLoader();
+                  loader.load( '/car_models/avent.obj', function(object) {
+                    var myObj = object;
+                    scene.add(object);
+                  });
+
+                  var renderer = new THREE.WebGLRenderer();
+                  renderer.setPixelRatio( window.devicePixelRatio );
+                  renderer.setSize( window.innerWidth / 1.5, window.innerHeight / 1.5);
+                  renderer.setClearColor(new THREE.Color("hsl(0, 0%, 83%)"));
+                  document.getElementById("threejs").appendChild( renderer.domElement );
+
+                  var zoom = new THREE.TrackballControls( camera, renderer.domElement );
+                  var orbit = new THREE.OrbitControls( camera, renderer.domElement );
+
+                  function render() {
+                    requestAnimationFrame( render );
+                    zoom.update();
+                    orbit.update();
+                    renderer.render( scene, camera );
+                  }
+
+                  render();
+                  
+                </script>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!--End section-->
+
+        <br></br>
+
+        <!--Start section blog--> 
+        <section class="well well-sm well-inset-2 text-center text-md-left">
+          <div class="container">
+            <h1 id="title" class="text-bold text-center">Latest Customizations</h1>
+            <div class="row flow-offset-2">
+              <% @customizations.reverse.each do |customization| %>
+                <div class="col-md-4">
+                  <article class="thumbnail thumbnail-4"><img src="<%= customization.car.image %>" alt="">
+                    <div class="caption">
+                      <h4><a href="blog_post.html">Customization #<%= customization.id %></a></h4>
+                      <p class="text-dark-variant-2">Created by <%= customization.user.name %></p>
+                      <div class="blog-info">
+                        <div class="pull-md-left">
+                          <time datetime="2015" class="meta fa-calendar"><%= customization.created_at %></time><a href="#" class="badge fa-comments font-secondary"><%= customization.comments.length %></a>
+                        </div><a href="/customizations/<%= customization.id %>" class="btn-link">Read More</a>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </section>
+        <!--End section-->
+
+        <!--Start section-->
+        <section class="well well-sm text-center text-md-left">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-6 col-lg-5">
+                <h2 class="text-bold">About CarCustomizr</h2>
+                <p class="lead">CarCustomizr is a fully functional web app built with Ruby On Rails and AngularJs. <br><br></p>
+              </div>
+              <div class="col-md-6 col-lg-6 col-lg-offset-1 text-left">
+                <p class="font-secondary big text-uppercase text-light-clr inset-2">CREATIVE DESIGN</p>
+                <div class="progress">
+                  <div role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" class="progress-bar animated" style="width: 75%;"></div><span class="small text-light-clr">75</span>
+                </div>
+                <p class="font-secondary big text-uppercase text-light-clr">BRANDING</p>
+                <div class="progress">
+                  <div role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" class="progress-bar animated" style="width: 85%;"></div><span class="small text-light-clr">85</span>
+                </div>
+                <p class="font-secondary big text-uppercase text-light-clr">SUPPORT</p>
+                <div class="progress">
+                  <div role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" class="progress-bar animated" style="width: 80%;"></div><span class="small text-light-clr">80</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!--End section-->
+
+        <!--Start section-->
+        <section class="bg-dark-var1 text-center">
+          <div class="container counter-panel">
+            <div class="row">
+              <div class="col-xs-6 col-sm-6 col-md-3">
+                <div data-from="0" data-to="197" class="counter animated"><%= @cars.length %></div>
+                <p class="text-opacity font-secondary text-uppercase">CARS</p>
+              </div>
+              <div class="col-xs-6 col-sm-6 col-md-3">
+                <div data-from="0" data-to="23" class="counter animated"><%= @customizations.length %></div>
+                <p class="text-opacity font-secondary text-uppercase">customizations</p>
+              </div>
+              <div class="col-xs-6 col-sm-6 col-md-3">
+                <div data-from="0" data-to="98" class="counter animated"><%= @users.length %></div>
+                <p class="text-opacity font-secondary text-uppercase">users</p>
+              </div>
+              <div class="col-xs-6 col-sm-6 col-md-3">
+                <div data-from="0" data-to="7230" class="counter animated"><%= @comments.length %></div>
+                <p class="text-opacity font-secondary text-uppercase">comments</p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!--End section-->
+</main>
