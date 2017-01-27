@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" class="wide wow-animation">
+  <head>
+    <!--Site Title-->
+    <title>Home</title>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+    <!--Stylesheets-->
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="/css/style.css">
+<!--[if lt IE 10]>
+    <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/.."><img src="/images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
+    <script src="/js/html5shiv.min.js"></script><[endif]-->
+    <%= csrf_meta_tags %>
+
+    <script src="/three.js/build/three.min.js"></script>
+    <script src="/three.js/examples/js/loaders/OBJLoader.js"></script>
+    <script src="/three.js/examples/js/loaders/MTLLoader.js"></script>
+    <script src="/three.js/examples/js/controls/OrbitControls.js"></script>
+    <script src="/three.js/examples/js/controls/TrackballControls.js"></script>
+    <script src="/three.js/examples/js/Detector.js"></script>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    
+     <!--The Main Wrapper-->
+    <div class="page">
+      <!--
+      ========================================================
+                              HEADER
+      ========================================================
+      -->
+      <header class="page-header">
+
+        <!--RD Navbar-->
+        <div class="rd-navbar-wrap">
+          <nav class="rd-navbar top-panel-none-items" data-layout="rd-navbar-fixed" data-hover-on="false" data-stick-up="false" data-sm-layout="rd-navbar-fullwidth" data-md-layout="rd-navbar-static">
+            <div class="rd-navbar-top-panel">
+              <div class="rd-navbar-inner">
+                <button data-rd-navbar-toggle=".list-inline, .fa-envelope, .fa-phone, .fa-shopping-cart" class="rd-navbar-collapse-toggle"><span></span></button><a href="mailto:#" class="fa-envelope">demomail@domail.com</a><a href="callto:#" class="fa-phone">+1 (126) 598-89-75</a>
+                <ul class="list-inline pull-right">
+                  <li><a href="#" class="fa-facebook"></a></li>
+                  <li><a href="#" class="fa-pinterest-p"></a></li>
+                  <li><a href="#" class="fa-twitter"></a></li>
+                  <li><a href="#" class="fa-google-plus"></a></li>
+                  <li><a href="#" class="fa-instagram"></a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="rd-navbar-inner">
+
+              <!--RD Navbar Panel-->
+              <div class="rd-navbar-panel">
+
+                <!--RD Navbar Toggle-->
+                <button data-rd-navbar-toggle=".rd-navbar" class="rd-navbar-toggle"><span></span></button>
+                <!--END RD Navbar Toggle-->
+
+                <!--RD Navbar Brand-->
+                <div class="rd-navbar-brand"><a href="/home" class="brand-name">CarCustomizr</a></div>
+                <!--END RD Navbar Brand-->
+              </div>
+              <!--END RD Navbar Panel-->
+
+              <div class="rd-navbar-nav-wrap" id="title">
+                <!--RD Navbar Nav-->
+                <ul class="rd-navbar-nav">
+                  <li><a href="/home" >Home</a></li>
+                  <li><a href="/cars">Cars</a></li>
+                  <li><a href="/customizations">Customizations</a></li>
+                  <li><a href="#">Account</a>
+                    <ul class="rd-navbar-dropdown">
+                    <% if current_user %>
+                      <li><a href="/users/<%= current_user.id %>">Account page</a></li>
+                    <% else %>
+                    <% end %>
+                      <li><a href="/logout">Log out</a></li>
+                    </ul>
+                  </li>
+                  </li>
+                </ul>
+                <!--END RD Navbar Nav-->
+              </div>
+            </div>
+          </nav>
+        </div>
+        <!--END RD Navbar-->
+      </header>
+      <!--
+      ========================================================
+                              CONTENT
+      ========================================================
+      -->
+
+      <%= yield %>
+      
+      <!--
+      ========================================================
+                              FOOTER
+      ========================================================
+      -->
+      
+      <footer class="page-footer footer-centered text-center">
+        <section class="footer-content">
+          <div class="container">
+            <div class="navbar-brand"><a href="/home" id="title">CarCustomizr</a></div>
+            <p class="big">Customize your car today!</p>
+            <ul class="list-inline">
+              <li><a href="#" class="fa-facebook"></a></li>
+              <li><a href="#" class="fa-pinterest-p"></a></li>
+              <li><a href="#" class="fa-twitter"></a></li>
+              <li><a href="#" class="fa-google-plus"></a></li>
+              <li><a href="#" class="fa-instagram"></a></li>
+            </ul>
+          </div>
+        </section>
+        <section class="copyright">
+          <div class="container">
+            <p>&#169; <span id="copyright-year"></span> All Rights Reserved <a href="terms.html">Terms of Use and Privacy Policy</a></p>
+          </div>
+        </section>
+      </footer>
+    </div>
+
+    <!--Core Scripts-->
+    <script src="/js/core.min.js"></script>
+    <!--jQuery (necessary for Bootstrap's JavaScript plugins)-->
+    <!--Include all compiled plugins (below), or include individual files as needed-->
+    <script src="/js/bootstrap.min.js"></script>
+    <!--Additional Functionality Scripts-->
+    <script src="/js/script.js"></script>
+  </body>
+</html>

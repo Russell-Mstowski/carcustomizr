@@ -2,8 +2,9 @@ class CustomizationsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @customizations = Customization.all.limit(2).reverse
-    render 'index.html.erb'
+    @cars = Car.all
+    @customizations = Customization.all.limit(2)
+    render 'index.html.erb', layout: 'application3.html.erb'
   end
 
   def new
@@ -26,9 +27,12 @@ class CustomizationsController < ApplicationController
   end
 
   def show
+    @all_cars = Car.all
+    @cars = Car.all
     @customization = Customization.find_by(id: params[:id]);
     @customizations = Customization.all.shuffle
     @user_customizations = @customization.user.customizations
+    @created_at = @customization.created_at.strftime("%b %e, %l:%M %p");
 
     render 'show.html.erb'
   end

@@ -22,6 +22,7 @@
     <script src="/three.js/examples/js/loaders/MTLLoader.js"></script>
     <script src="/three.js/examples/js/controls/OrbitControls.js"></script>
     <script src="/three.js/examples/js/controls/TrackballControls.js"></script>
+    <script src="/three.js/examples/js/Detector.js"></script>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -41,6 +42,18 @@
         <!--RD Navbar-->
         <div class="rd-navbar-wrap">
           <nav class="rd-navbar top-panel-none-items" data-layout="rd-navbar-fixed" data-hover-on="false" data-stick-up="false" data-sm-layout="rd-navbar-fullwidth" data-md-layout="rd-navbar-static">
+            <div class="rd-navbar-top-panel">
+              <div class="rd-navbar-inner">
+                <button data-rd-navbar-toggle=".list-inline, .fa-envelope, .fa-phone, .fa-shopping-cart" class="rd-navbar-collapse-toggle"><span></span></button><a href="mailto:#" class="fa-envelope">demomail@domail.com</a><a href="callto:#" class="fa-phone">+1 (126) 598-89-75</a>
+                <ul class="list-inline pull-right">
+                  <li><a href="#" class="fa-facebook"></a></li>
+                  <li><a href="#" class="fa-pinterest-p"></a></li>
+                  <li><a href="#" class="fa-twitter"></a></li>
+                  <li><a href="#" class="fa-google-plus"></a></li>
+                  <li><a href="#" class="fa-instagram"></a></li>
+                </ul>
+              </div>
+            </div>
             <div class="rd-navbar-inner">
 
               <!--RD Navbar Panel-->
@@ -51,24 +64,24 @@
                 <!--END RD Navbar Toggle-->
 
                 <!--RD Navbar Brand-->
-                <div class="rd-navbar-brand"><a id="title" href="/home" class="brand-name">CarCustomizr</a></div>
+                <div class="rd-navbar-brand"><a href="/home" class="brand-name">CarCustomizr</a></div>
                 <!--END RD Navbar Brand-->
               </div>
               <!--END RD Navbar Panel-->
 
               <div class="rd-navbar-nav-wrap">
-
                 <!--RD Navbar Nav-->
-                <ul  class="rd-navbar-nav">
-                  <li  class="active"><a id="title" href="/home">Home</a></li>
-                  <li class="active"><a id="title" href="/cars">Cars</a></li>
-                  <li class="active"><a id="title" href="/customizations">Customizations</a></li>
-                  <li class="active"><a id="title" href="#">Account</a>
+                <ul class="rd-navbar-nav">
+                  <li id=""><a href="/home">Home</a></li>
+                  <li><a href="/cars">Cars</a></li>
+                  <li><a href="/customizations">Customizations</a></li>
+                  <li><a href="#">Account</a>
                     <ul class="rd-navbar-dropdown">
-                      <% if current_user %>
-                        <li><a href="/users/<%= current_user.id %>">Homepage</a></li>
-                      <% end %>
-                      <li><a href="/logout">logout</a></li>
+                    <% if current_user %>
+                      <li><a href="/users/<%= current_user.id %>">Account page</a></li>
+                    <% else %>
+                    <% end %>
+                      <li><a href="/logout">Log out</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -78,8 +91,29 @@
           </nav>
         </div>
         <!--END RD Navbar-->
-      <p></p>
-      <p></p>
+        <section>
+          <!--Swiper-->
+          <div data-autoplay="5000" data-slide-effect="fade" data-loop="false" class="swiper-container swiper-slider">
+            <div class="jumbotron text-center">
+              <h1 id="title">CarCustomizr!</h1>
+              <p class="big" id="title">Create your very own custom car!</p>
+            </div>
+            <div class="swiper-wrapper">
+              <div data-slide-bg="<%= @all_cars.fourth.image %>" class="swiper-slide">
+                <div class="swiper-slide-caption"></div>
+              </div>
+              <div data-slide-bg="<%= @all_cars.second.image %>" class="swiper-slide">
+                <div class="swiper-slide-caption"></div>
+              </div>
+              <div data-slide-bg="<%= @all_cars.third.image %>" class="swiper-slide">
+                <div class="swiper-slide-caption"></div>
+              </div>
+              <div data-slide-bg="<%= @all_cars.first.image %>" class="swiper-slide">
+                <div class="swiper-slide-caption"></div>
+              </div>
+            </div>
+          </div>
+        </section>
       </header>
       <!--
       ========================================================
@@ -98,7 +132,7 @@
       <footer class="page-footer footer-centered text-center">
         <section class="footer-content">
           <div class="container">
-            <div class="navbar-brand"><a href="/customizations">CarCustomizr</a></div>
+            <div class="navbar-brand"><a href="/home" id="title">CarCustomizr</a></div>
             <p class="big">Customize your car today!</p>
             <ul class="list-inline">
               <li><a href="#" class="fa-facebook"></a></li>

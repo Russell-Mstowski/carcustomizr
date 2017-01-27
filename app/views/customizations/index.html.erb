@@ -2,100 +2,229 @@
   <!--Start section-->
   <section class="text-center text-md-left offset-1">
     <div class="container">
-      <div class="row">
-        <% @customizations.each do |customization| %>
-          <div class="col-sm-6 col-md-4">
-          <article class="thumbnail thumbnail-4 section-border well slow-hover">
-            <div class="image-slow-wrapper">
-              <div id="carmodel-<%= customization.id %>" style="width: 350px; height: 200px;">
-                 <script type="text/javascript">
-                    /* global THREE */
+      <style>
+        * {
+          box-sizing: border-box;
+          -moz-box-sizing: border-box;
+        }
 
-                    var scenes = [];
-                    var customizations = "<%= @customizations %>";
-                    console.log(customizations);
-                    var i = 0;
+        body {
+          color: #000;
+          font-family:Monospace;
+          font-size:13px;
 
-                    for(i; i < 2; i++) {
+          background-color: #fff;
+          margin: 0px;
+        }
 
-                      var scene = new THREE.Scene();
+        #info {
+          position: absolute;
+          top: 100px; width: 100%;
+          padding: 5px;
+          text-align:center;
+        }
 
-                      var element = document.getElementById("carmodel-<%= customization.id %>");
+        #content {
+          position: absolute;
+          top: 100px; width: 100%;
+          z-index: 1;
+          padding: 3em 0 0 0;
+        }
 
-                      var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
-                      camera.position.z = 5;
-                      scene.userData.camera = camera;
+        a {
+          color: #0080ff;
+        }
 
-                      var light = new THREE.SpotLight();
-                      light.position.set( 100, 1000, 100);
-                      light.intensity = 5;
-                      scene.add( light );
+        #c {
+          position: fixed;
+          left: 0px;
+          width: 100%;
+          height: 100%;
+        }
 
-                      var mtlLoader = new THREE.MTLLoader();
+        .list-item {
+          display: inline-block;
+          margin: 1em;
+          padding: 1em;
+          box-shadow: 1px 2px 4px 0px rgba(0,0,0,0.25);
+          transition: opacity 4s ease-in-out;
+        }
 
-                      function loadMaterial( materials ) {
-                        
-                        materials.preload();
+        .list-item .scene {
+          width: 200px;
+          height: 200px;
+        }
 
-                        var loader = new THREE.OBJLoader();
-                        loader.setMaterials( materials );
-                        loader.load( "/car_models/<%= customization.car.make %>", function(object) {
-                          scene.add(object);
-                          //object.position = new THREE.Vector3(100, 100, 100);
-                          //document.getElementById("carmodel-<%= customization.id %>").style["display"] = "";
-                        });
+        .list-item .description {
+          color: #888;
+          font-family: sans-serif;
+          font-size: large;
+          width: 200px;
+          margin-top: 0.5em;
+        }
 
-                      }
+      </style>
 
-                      
-                      mtlLoader.load("/car_models/<%= customization.color %>", loadMaterial);
+      <canvas id="c"></canvas>
 
-                      var zoom = new THREE.TrackballControls( camera, element );
-                      var orbit = new THREE.OrbitControls( camera, element );
-
-                      scenes.push(scene);
-                    }
-
-                    var renderer = new THREE.WebGLRenderer();
-                    renderer.setPixelRatio( window.devicePixelRatio );
-                    renderer.setSize( window.innerWidth / 3.3, window.innerHeight / 3);
-                    renderer.setClearColor(new THREE.Color("hsl(0, 0%, 75%)"));
-                    document.getElementById("carmodel-<%= customization.id %>").appendChild( renderer.domElement );
-
-
-                    function render() {
-                      requestAnimationFrame( render );
-                      zoom.update();
-                      orbit.update();
-
-                      renderer.render( scene, camera );
-                    }
-
-                    render();
-                 </script>
-              </div>
-            </div>
-            <div class="caption">
-              <h4><a href="/customizations/<%= customization.id %>">Customization #<%= customization.id %></a></h4>
-              <p class="text-dark-variant-2">Creator: <%= customization.user.name %></p>
-              <div class="blog-info">
-                <div class="pull-md-left">
-                  <time datetime="2015" class="meta fa-calendar"><%= customization.created_at %></time><a href="#" class="badge fa-comments font-secondary"><%= customization.comments.length %></a>
-                </div><a href="/customizations/<%= customization.id %>" class="btn-link">Read More</a>
-              </div>
-            </div>
-          </article>
-          </div>
-        <% end %>
+      <div id="content">
       </div>
-    </div>
-  </section>
-  <!--End section-->
 
-  <!--Start section-->
-  <section class="well text-center text-md-left">
-    <div class="container">
-      <div aria-label="First group" role="group" class="col-inset-2 text-center btn-group"><a href="#" class="btn btn-default round-small active">1</a><a href="#" class="btn btn-default round-small">2</a><a href="#" class="btn btn-default round-small">3</a><span class="text-light-clr font-secondary">...</span><a href="#" class="btn btn-default round-small">8</a></div>
+      <script id="template" type="notjs">
+        <div class="scene"></div>
+        <div class="description"><a href="/customizations">Customization $</a></div>
+      </script>
+
+      <script>
+        /* global THREE, Detector */
+        $.getJSON('/api/v1/customizations', function(carData) {
+          console.log(carData);
+        
+
+        // var carData = [{id: 1, model: "avent.obj", material: "greenavent.mtl"}, {id: 2, model: "avent.obj", material: "purpleavent.mtl"}];
+
+        if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
+
+        var canvas;
+
+        var scenes = [], renderer;
+
+        init();
+        animate();
+
+        function init() {
+
+          canvas = document.getElementById( "c" );
+
+          var template = document.getElementById( "template" ).text;
+          var content = document.getElementById( "content" );
+
+          var mtlLoader = new THREE.MTLLoader();
+
+          function createScene(object, i) {
+            var scene = new THREE.Scene();
+            // make a list item
+            var element = document.createElement( "div" );
+            element.className = "list-item";
+            element.innerHTML = template.replace( '$', i );
+            // Look up the element that represents the area
+            // we want to render the scene
+            scene.userData.element = element.querySelector( ".scene" );
+            content.appendChild( element );
+            var camera = new THREE.PerspectiveCamera( 50, 1, 1, 10 );
+            camera.position.x = -5;
+            camera.position.y = 4;
+            camera.position.z = 4;
+            scene.userData.camera = camera;
+            var controls = new THREE.OrbitControls( scene.userData.camera, scene.userData.element );
+            controls.enableZoom = true;
+            scene.userData.controls = controls;
+            // var zoom = new THREE.TrackballControls( camera, element );
+            scene.add( new THREE.HemisphereLight( 0xaaaaaa, 0x444444 ) );
+            var light = new THREE.DirectionalLight( 0xffffff, 3 );
+            light.position.set( 1, 1, 1 );
+            scene.add( light );
+            scene.add(object);
+            scenes.push( scene );
+          }
+
+          carData.forEach(function(car) {
+            mtlLoader.load( "/car_models/" + car.color, function(materials) {
+              materials.preload();
+              var loader = new THREE.OBJLoader();
+              loader.setMaterials( materials );
+              loader.load( "car_models/" + car.name, function(object) {
+                // scene.add(object);
+                console.log('car', car);
+                createScene(object, car.id);
+              });
+            });
+          });
+
+          renderer = new THREE.WebGLRenderer( {canvas: canvas, antialias: true} );
+          renderer.setClearColor( 0xffffff, 0.5 );
+          renderer.setClearColor( 0x000000, 0 );
+          renderer.setPixelRatio( window.devicePixelRatio );
+
+        }
+
+        function updateSize() {
+
+          var width = canvas.clientWidth;
+          var height = canvas.clientHeight;
+
+          if ( canvas.width !== width || canvas.height != height ) {
+
+            renderer.setSize( width, height, false );
+
+          }
+
+        }
+
+        function animate() {
+
+          render();
+          requestAnimationFrame( animate );
+
+        }
+
+        function render() {
+
+          updateSize();
+
+          renderer.setClearColor( 0xffffff );
+          renderer.setScissorTest( false );
+          renderer.clear();
+
+          renderer.setClearColor( 0xe0e0e0 );
+          renderer.setScissorTest( true );
+
+          scenes.forEach( function( scene ) {
+
+            // so something moves
+            // console.log(scene.children.length, scene.children);
+            // scene.children[0].rotation.y = Date.now() * 0.0005;
+            // scene.children[1].rotation.y = Date.now() * 0.0005;
+            scene.children[2].rotation.y = Date.now() * 0.0005;
+
+            // get the element that is a place holder for where we want to
+            // draw the scene
+            var element = scene.userData.element;
+
+            // get its position relative to the page's viewport
+            var rect = element.getBoundingClientRect();
+
+            // check if it's offscreen. If so skip it
+            if ( rect.bottom < 0 || rect.top  > renderer.domElement.clientHeight ||
+               rect.right  < 0 || rect.left > renderer.domElement.clientWidth ) {
+
+              return;  // it's off screen
+
+            }
+
+            // set the viewport
+            var width  = rect.right - rect.left;
+            var height = rect.bottom - rect.top;
+            var left   = rect.left;
+            var bottom = renderer.domElement.clientHeight - rect.bottom;
+
+            renderer.setViewport( left, bottom, width, height );
+            renderer.setScissor( left, bottom, width, height );
+
+            var camera = scene.userData.camera;
+
+            //camera.aspect = width / height; // not changing in this example
+            //camera.updateProjectionMatrix();
+
+            //scene.userData.controls.update();
+
+            renderer.render( scene, camera );
+
+          } );
+
+        }
+        });
+      </script>
     </div>
   </section>
   <!--End section-->

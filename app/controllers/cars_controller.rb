@@ -2,8 +2,18 @@ class CarsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @cars = Car.all
-
+    @all_cars = Car.all
+    num_of_comments = current_user.comments.length
+    if num_of_comments < 3
+      @cars = Car.all.limit(1)
+    elsif num_of_comments >= 3 && num_of_comments < 5
+      @cars = Car.all.limit(2)
+    elsif num_of_comments >= 5 && num_of_comments < 7
+      @cars = Car.all.limit(3)
+    else
+      @cars = Car.all
+    end
+      
     render 'index.html.erb'
   end
 
@@ -21,6 +31,7 @@ class CarsController < ApplicationController
   end
 
   def show
+    @all_cars = Car.all
     @car = Car.find_by(id: params[:id])
     @cars = Car.all.shuffle
     render 'show.html.erb'

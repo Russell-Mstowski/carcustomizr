@@ -1,11 +1,4 @@
 <main class="page-content">
-  <ol class="breadcrumb section-border">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="#">Pages</a></li>
-    <li><a href="#">Our Team</a></li>
-    <li class="active"><a href="#">Team member profile</a></li>
-  </ol>
-
   <!--Start section-->
   <section class="text-center text-md-left well well-sm">
     <div class="container">
@@ -14,23 +7,20 @@
         <div class="col-sm-12 col-md-6">
           <h1><%= @user.name %></h1>
           <p class="small text-light-clr text-uppercase"><%= @user.customizations.length %> customization(s)</p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. <br><br>
-          </p>
           <div data-isotope-layout="masonry" data-isotope-group="gallery" data-lightbox="gallery" class="row isotope offset-1">
               <% @user_customizations.each do |customization| %>
                 <div data-filter="type-1" class="col-xs-6 col-sm-6 col-md-4">
                 <div class="thumbnail-variant-2 thumbnail-4 text-center"><a href="<%= customization.car.image %>" data-lightbox="image"><img src="<%= customization.car.image %>" alt="">
                     <div class="caption">
-                      <h4 class="text-white"><%= customization.car.make %><small><%= customization.car.model %></small></h4>
-                    </div></a><a href="#" class="icon icon-sm text-white fa-chain"></a></div>
+                      <h4 class="text-white"><%= customization.car.model %></h4>
+                    </div></a><a href="/customizations/<%= customization.id %>" class="icon icon-sm text-white fa-chain"></a></div>
               </div>
               <% end %>
           </div>
           <ul class="list-inline list-inline-3">
-            <li><a href="#" class="fa-facebook-square"></a></li>
-            <li><a href="#" class="fa-twitter-square"></a></li>
-            <li><a href="#" class="fa-google-plus-square"></a></li>
+            <li><a href="https://facebook.com" class="fa-facebook-square"></a></li>
+            <li><a href="https://twitter.com" class="fa-twitter-square"></a></li>
+            <li><a href="https://google.com" class="fa-google-plus-square"></a></li>
           </ul>
         </div>
       </article>

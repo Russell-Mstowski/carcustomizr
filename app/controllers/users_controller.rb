@@ -20,6 +20,8 @@ class UsersController < ApplicationController
   end
 
   def show
+    @all_cars = Car.all
+    @cars = Car.all
     @user = User.find_by(id: params[:id])
     @user_customizations = @user.customizations
     render 'show.html.erb'

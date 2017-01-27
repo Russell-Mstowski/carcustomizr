@@ -28,4 +28,11 @@ Rails.application.routes.draw do
   delete '/customizations/:id' => 'customizations#destroy'
 
   post '/comments' => 'comments#create'
+
+  namespace :api do
+    namespace :v1 do
+      get '/customizations' => 'customizations#index'
+      get '/customizations/:id' => 'customizations#show'
+    end
+  end
 end
