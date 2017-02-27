@@ -1,6 +1,6 @@
 class Api::V1::CustomizationsController < ApplicationController
   def index
-    @customizations = Customization.all.limit(8)
+    @customizations = Customization.all.limit(4)
     @customizations = @customizations.shuffle
     render 'index.json.jbuilder'
   end

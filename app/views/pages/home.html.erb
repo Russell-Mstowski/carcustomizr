@@ -31,7 +31,7 @@
 
                   var renderer = new THREE.WebGLRenderer();
                   renderer.setPixelRatio( window.devicePixelRatio );
-                  renderer.setSize( window.innerWidth / 1.5, window.innerHeight / 1.5);
+                  renderer.setSize( window.innerWidth / 1.8, window.innerHeight / 1.5);
                   renderer.setClearColor(new THREE.Color("hsl(0, 0%, 83%)"));
                   document.getElementById("threejs").appendChild( renderer.domElement );
 
@@ -62,6 +62,7 @@
         <!--Start section blog--> 
         <section class="well well-sm well-inset-2 text-center text-md-left">
           <div class="container">
+            <br>
             <h1 id="title" class="text-bold text-center">Latest Customizations</h1>
             <div class="row flow-offset-2">
               <% @customizations.reverse.each do |customization| %>
