@@ -332,7 +332,7 @@ function isIE() {
                             url;
                         if (url = $this.attr("data-slide-bg")) {
                             $this.css({
-                                "background-image": "image-url(" + url + ")",
+                                "background-image": "url(" + url + ")",
                                 "background-size": "cover"
                             })
                         }
