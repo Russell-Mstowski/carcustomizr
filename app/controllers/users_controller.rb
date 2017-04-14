@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   
   def new
-    render 'new.html.erb'
+    @all_cars = Car.all
+    render 'new.html.erb', layout: 'application4.html.erb'
   end
 
   def create
@@ -9,11 +10,11 @@ class UsersController < ApplicationController
       name: params[:name],
       email: params[:email],
       password: params[:password],
-      password_confirmation: params[:password_confirmation])
+      password_confirmation: params[:password])
 
     if user.save
       session[:user_id] = user.id
-      redirect_to '/cars'
+      redirect_to '/home'
     else
       redirect_to '/signup'
     end
