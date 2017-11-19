@@ -17,7 +17,6 @@ Rails.application.routes.draw do
   get '/cars/:id/edit' => 'cars#edit'
   patch '/cars/:id' => 'cars#update'
   delete '/cars/:id' => 'cars#destroy'
-  get '/threedmodel' => 'cars#threedmodel'
 
   get '/customizations' => 'customizations#index'
   get '/customizations/new' => 'customizations#new'
